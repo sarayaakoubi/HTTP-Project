@@ -1,3 +1,4 @@
+
 # Travel Agency — web server
 
 Flask server for a travel agency, served to devices on the local network. It has
