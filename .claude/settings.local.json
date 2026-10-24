@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(try { Get-WinEvent -LogName \"Microsoft-Windows-Windows Firewall With Advanced Security/Firewall\" -MaxEvents 40 -ErrorAction Stop | Where-Object { $_.Id -in 2004,2005,2006,2033 } | Select-Object TimeCreated, Id, @{n='Event';e={switch\\($_.Id\\){2004{'rule ADDED'}2005{'rule MODIFIED'}2006{'rule DELETED'}2033{'all rules deleted'}}}}, @{n='Rule';e={\\($_.Message -split \"`n\" | Select-String 'Rule Name|Name:' | Select-Object -First 1\\).ToString\\(\\).Trim\\(\\)}} | Format-Table -AutoSize -Wrap } catch { Write-Output \"Could not read that log: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(try { $ev = Get-WinEvent -LogName \"Microsoft-Windows-Windows Firewall With Advanced Security/Firewall\" -MaxEvents 25 -ErrorAction Stop; Write-Output \"events found: $\\($ev.Count\\)\"; $ev | Select-Object TimeCreated, Id, LevelDisplayName | Format-Table -AutoSize } catch { Write-Output \"LOG UNAVAILABLE: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($all = Get-WinEvent -LogName \"Microsoft-Windows-Windows Firewall With Advanced Security/Firewall\" -ErrorAction SilentlyContinue; Write-Output \"total events in log: $\\($all.Count\\)\"; Write-Output \"oldest: $\\(\\($all | Select-Object -Last 1\\).TimeCreated\\)\"; Write-Output \"--- event id counts ---\"; $all | Group-Object Id | Sort-Object Name | Select-Object Name, Count | Format-Table -AutoSize; Write-Output \"--- events during my test window \\(09:15-09:30 on 01/10\\) ---\"; $all | Where-Object { $_.TimeCreated -ge \\(Get-Date \"01/10/2026 09:15\"\\) -and $_.TimeCreated -le \\(Get-Date \"01/10/2026 09:35\"\\) } | Select-Object TimeCreated, Id, @{n='Msg';e={\\($_.Message -replace \"`r`n\",\" | \"\\).Substring\\(0,[Math]::Min\\(160,$_.Message.Length\\)\\)}} | Format-List)",
+      "Bash(./venv/Scripts/python.exe -)"
+    ]
+  }
+}

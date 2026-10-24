@@ -1,0 +1,56 @@
+@startuml architecture-diagram
+' Horizon Travel — application architecture
+' Render: VS Code PlantUML (Alt+D), plantuml.com, or java -jar plantuml.jar
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam ArrowColor #5B6B7A
+skinparam componentStyle rectangle
+skinparam rectangle {
+  BorderColor #1C6491
+  BackgroundColor #EAF2F8
+  FontColor #16212B
+}
+skinparam node {
+  BorderColor #12293F
+  BackgroundColor #FBF7F1
+  FontColor #16212B
+}
+skinparam database {
+  BorderColor #C9A24B
+  BackgroundColor #F0EAE0
+  FontColor #6B4E09
+}
+
+node "Web browser\n(client or admin, on the LAN)" as browser
+
+rectangle "Windows Firewall\ninbound TCP :5000  (outside the code)" as fw #F0EAE0
+
+rectangle "server.py\nbinds 0.0.0.0:5000 · dev server · banner\n(HOST / PORT / DEBUG)" as server
+
+rectangle "app.py — Flask application" as app {
+  rectangle "before_request\nload session, refresh presence" as hook
+  rectangle "Access guards\nlogin_required / admin_required" as guard
+  rectangle "Route handlers\none per use case" as routes
+  rectangle "Validation\nform + payment checks" as valid
+  hook -right-> guard
+  guard -right-> routes
+  routes -right-> valid
+}
+
+rectangle "Presentation\ntemplates/ (Jinja2)\nstatic/ (style.css, reveal.js)" as view
+
+rectangle "db.py\ndata access · password hashing ·\nactivity logging (same transaction)" as db
+
+database "travels.db  (SQLite)\ntravels · users · bookings · activity\n+ secret_key.txt" as store
+
+browser --> fw : HTTP request
+fw --> server
+server --> app
+app --> view : render
+app --> db : read / write
+db --> store
+view ..> browser : HTTP response (HTML)
+
+@enduml

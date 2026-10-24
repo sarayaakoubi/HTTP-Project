@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section error-page">
+
+  <div class="error-art" aria-hidden="true">
+    {% if code == 404 %}
+      {# A flight path that wanders off and never lands. #}
+      <svg viewBox="0 0 440 260" focusable="false">
+        <circle class="e-sun" cx="356" cy="64" r="40"/>
+        <path class="e-path" d="M26 206 C110 206 128 108 206 108 C268 108 282 170 342 150"/>
+        <circle class="e-dot" cx="26" cy="206" r="7"/>
+        <g class="e-plane">
+          <path d="M330 136 L372 130 L383 121 L390 123 L385 132 L404 130 L409 136 L385 141 L389 152 L382 154 L372 142 L330 141 Z"/>
+        </g>
+        <path class="e-ground" d="M0 232 L112 214 L228 234 L336 216 L440 230 L440 260 L0 260 Z"/>
+      </svg>
+    {% else %}
+      {# A closed gate: the way exists, you are just not cleared for it. #}
+      <svg viewBox="0 0 440 260" focusable="false">
+        <path class="e-ground" d="M0 232 L440 232 L440 260 L0 260 Z"/>
+        <rect class="e-gate" x="96" y="78" width="112" height="154" rx="6"/>
+        <rect class="e-gate" x="232" y="78" width="112" height="154" rx="6"/>
+        <circle class="e-lock" cx="220" cy="150" r="26"/>
+        <rect class="e-lock-body" x="208" y="146" width="24" height="22" rx="4"/>
+        <path class="e-lock-arc" d="M212 146 v-9 a8 8 0 0 1 16 0 v9"/>
+      </svg>
+    {% endif %}
+  </div>
+
+  <p class="error-code">{{ code }}</p>
+
+  <h1>
+    {% if code == 404 %}This page took a wrong turn
+    {% elif code == 403 %}This gate is staff only
+    {% elif code == 405 %}That is not how this page is reached
+    {% else %}Something went wrong at our end
+    {% endif %}
+  </h1>
+
+  <p class="lede-sm muted error-lede">
+    {% if code == 404 %}
+      The address you asked for does not exist here. It may have been renamed,
+      or a travel that used to live at this link has since been removed.
+    {% elif code == 403 %}
+      {% if user %}
+        You are signed in as <strong>{{ user.username }}</strong>, and this area
+        is for administrators only.
+      {% else %}
+        {{ message }}
+      {% endif %}
+    {% else %}
+      {{ message }}
+    {% endif %}
+  </p>
+
+  <div class="error-actions">
+    <a class="btn btn-cta" href="{{ url_for('home') }}">Back to the home page</a>
+    <a class="btn" href="{{ url_for('home') }}#destinations">Browse journeys</a>
+  </div>
+
+  {# Somewhere useful to go next, matched to who is asking. #}
+  <nav class="error-links" aria-label="Other pages">
+    {% if user %}
+      {% if user.role == 'admin' %}
+        <a href="{{ url_for('travel_list') }}">Manage travels</a>
+        <a href="{{ url_for('user_list') }}">Manage users</a>
+        <a href="{{ url_for('booking_list') }}">All bookings</a>
+        <a href="{{ url_for('activity') }}">Activity</a>
+      {% else %}
+        <a href="{{ url_for('profile') }}">My bookings</a>
+      {% endif %}
+    {% else %}
+      <a href="{{ url_for('login') }}">Sign in</a>
+      <a href="{{ url_for('signup') }}">Create an account</a>
+    {% endif %}
+  </nav>
+</main>
+{% endblock %}

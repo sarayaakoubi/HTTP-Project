@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#33231C">
+  <title>{% block title %}{{ agency.name }}{% endblock %}</title>
+
+  {# Two families, four weights. preconnect opens the connection before the CSS
+     is parsed; display=swap paints fallback text immediately instead of leaving
+     a blank page while the fonts download. #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  {# Scroll reveals start at opacity 0 and are turned on by reveal.js. With
+     scripting off, that would leave the page blank, so undo the starting
+     state outright. #}
+  <noscript>
+    <style>[data-reveal] { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
+</head>
+<body>
+
+  {# First tab stop, so keyboard users can jump the nav. #}
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="logo" href="{{ url_for('home') }}">
+      <span class="logo-mark" aria-hidden="true"></span>
+      {{ agency.name }}
+    </a>
+
+    <nav aria-label="Main">
+      <a href="{{ url_for('home') }}">Home</a>
+
+      {% if user %}
+        {% if user.role == 'admin' %}
+          <a href="{{ url_for('travel_list') }}">Travels</a>
+          <a href="{{ url_for('user_list') }}">Users</a>
+          <a href="{{ url_for('booking_list') }}">Bookings</a>
+          <a href="{{ url_for('activity') }}">Activity</a>
+        {% else %}
+          <a href="{{ url_for('profile') }}">My bookings</a>
+        {% endif %}
+      {% endif %}
+    </nav>
+
+    <div class="account">
+      {% if user %}
+        <span class="whoami">
+          <span class="dot dot-online" title="Signed in"></span>
+          {{ user.username }}
+          <span class="role role-{{ user.role }}">{{ user.role }}</span>
+        </span>
+        <form method="post" action="{{ url_for('logout') }}">
+          <button class="btn btn-small" type="submit">Sign out</button>
+        </form>
+      {% else %}
+        <a class="btn btn-small" href="{{ url_for('login') }}">Sign in</a>
+        <a class="btn btn-small btn-solid" href="{{ url_for('signup') }}">Sign up</a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if default_admin_warning %}
+    <div class="banner" role="status">
+      This admin account still uses the default password.
+      <a href="{{ url_for('profile') }}">Change it now.</a>
+    </div>
+  {% endif %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {# aria-live so a screen reader announces the result of a booking or edit. #}
+      <div class="flashes" role="status" aria-live="polite">
+        {% for category, message in messages %}
+          <p class="flash flash-{{ category }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div id="main">
+    {% block body %}{% endblock %}
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; {{ agency.name }} &middot; {{ agency.phone }} &middot; {{ agency.email }}</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/reveal.js') }}" defer></script>
+</body>
+</html>

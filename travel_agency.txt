@@ -1,0 +1,12 @@
+The firewall rule creation cmd : 
+New-NetFirewallRule -DisplayName "TravelAgency Flask 5000" -Direction Inbound -Protocol TCP -LocalPort 5000 -Action Allow -Profile Public
+enable rule cmd :
+Set-NetFirewallRule -DisplayName "TravelAgency Flask 5000" -Enabled True
+The sever run cmd : 
+.\venv\Scripts\python.exe app.py            
+check fire wall status :
+ Get-NetFirewallRule -DisplayName "TravelAgency Flask 5000" | Select-Object DisplayName, Enabled, Profile, Action
+diable the rule :
+ Set-NetFirewallRule -DisplayName "TravelAgency Flask 5000" -Enabled False
+
+ 

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="1130" viewBox="0 0 980 1130" font-family="Segoe UI, Arial, Helvetica, sans-serif">
+<defs><marker id="down" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 L5 9 L10 0" fill="none" stroke="#5B6B7A" stroke-width="1.6"/></marker><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5B6B7A"/></marker></defs>
+<rect width="980" height="1130" fill="#FFFFFF"/>
+<text x="490" y="40" text-anchor="middle" font-size="21" font-weight="700" fill="#12293F">Horizon Travel - application architecture</text>
+<rect x="240" y="64" width="500" height="78" rx="12" fill="#FBF7F1" stroke="#12293F" stroke-width="2"/>
+<text x="490" y="92" text-anchor="middle" font-size="16.5" font-weight="700" fill="#16212B">Web browser</text>
+<text x="490" y="116" text-anchor="middle" font-size="13.5" fill="#16212B">Client or administrator, on the local network</text>
+<line x1="490" y1="142" x2="490" y2="176" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<text x="500" y="163" font-size="12.5" fill="#5B6B7A">HTTP request  :5000</text>
+<rect x="240" y="176" width="500" height="70" rx="12" fill="#F0EAE0" stroke="#C9A24B" stroke-width="2"/>
+<text x="490" y="204" text-anchor="middle" font-size="16.5" font-weight="700" fill="#6B4E09">Windows Firewall</text>
+<text x="490" y="228" text-anchor="middle" font-size="13.5" fill="#16212B">Allows inbound TCP on port 5000  (outside the code)</text>
+<line x1="490" y1="246" x2="490" y2="286" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<rect x="190" y="286" width="600" height="86" rx="12" fill="#EAF2F8" stroke="#1C6491" stroke-width="2"/>
+<text x="490" y="314" text-anchor="middle" font-size="16.5" font-weight="700" fill="#16212B">server.py</text>
+<text x="776" y="308" text-anchor="end" font-size="11.5" font-style="italic" fill="#5B6B7A">how it is served</text>
+<text x="490" y="338" text-anchor="middle" font-size="13.5" fill="#16212B">Binds 0.0.0.0:5000 - Flask dev server - startup banner</text>
+<text x="490" y="358" text-anchor="middle" font-size="13.5" fill="#16212B">HOST / PORT / DEBUG live here, nothing else does</text>
+<line x1="490" y1="372" x2="490" y2="410" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<rect x="120" y="410" width="740" height="300" rx="14" fill="#F7FAFC" stroke="#12293F" stroke-width="2"/>
+<text x="140" y="440" font-size="16.5" font-weight="700" fill="#12293F">app.py  -  Flask application</text>
+<text x="844" y="438" text-anchor="end" font-size="11.5" font-style="italic" fill="#5B6B7A">routes &amp; rules</text>
+<rect x="143" y="462" width="160" height="150" rx="10" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.6"/>
+<text x="223" y="492" text-anchor="middle" font-size="14" font-weight="700" fill="#16212B">before_request</text>
+<text x="223" y="520" text-anchor="middle" font-size="12.5" fill="#16212B">load the session,</text>
+<text x="223" y="538" text-anchor="middle" font-size="12.5" fill="#16212B">refresh presence</text>
+<line x1="303" y1="537" x2="321" y2="537" stroke="#5B6B7A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="321" y="462" width="160" height="150" rx="10" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.6"/>
+<text x="401" y="492" text-anchor="middle" font-size="14" font-weight="700" fill="#16212B">Access guards</text>
+<text x="401" y="520" text-anchor="middle" font-size="12.5" fill="#16212B">login_required /</text>
+<text x="401" y="538" text-anchor="middle" font-size="12.5" fill="#16212B">admin_required</text>
+<line x1="481" y1="537" x2="499" y2="537" stroke="#5B6B7A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="499" y="462" width="160" height="150" rx="10" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.6"/>
+<text x="579" y="492" text-anchor="middle" font-size="14" font-weight="700" fill="#16212B">Route handler</text>
+<text x="579" y="520" text-anchor="middle" font-size="12.5" fill="#16212B">one per use case</text>
+<text x="579" y="538" text-anchor="middle" font-size="12.5" fill="#16212B">(book, manage...)</text>
+<line x1="659" y1="537" x2="677" y2="537" stroke="#5B6B7A" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="677" y="462" width="160" height="150" rx="10" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.6"/>
+<text x="757" y="492" text-anchor="middle" font-size="14" font-weight="700" fill="#16212B">Validation</text>
+<text x="757" y="520" text-anchor="middle" font-size="12.5" fill="#16212B">form + payment</text>
+<text x="757" y="538" text-anchor="middle" font-size="12.5" fill="#16212B">checks</text>
+<line x1="300" y1="710" x2="300" y2="760" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<text x="290" y="735" text-anchor="end" font-size="12.5" fill="#5B6B7A">render</text>
+<line x1="680" y1="710" x2="680" y2="760" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<text x="690" y="735" font-size="12.5" fill="#5B6B7A">read / write</text>
+<rect x="90" y="760" width="420" height="120" rx="12" fill="#EAF2F8" stroke="#1C6491" stroke-width="2"/>
+<text x="300" y="788" text-anchor="middle" font-size="16.5" font-weight="700" fill="#16212B">Presentation</text>
+<text x="300" y="812" text-anchor="middle" font-size="13.5" fill="#16212B">templates/  -  Jinja2 pages (base, index,</text>
+<text x="300" y="832" text-anchor="middle" font-size="13.5" fill="#16212B">auth/, admin/, checkout, profile, error)</text>
+<text x="300" y="852" text-anchor="middle" font-size="13.5" fill="#16212B">static/  -  style.css, reveal.js</text>
+<rect x="540" y="760" width="350" height="120" rx="12" fill="#EAF2F8" stroke="#1C6491" stroke-width="2"/>
+<text x="715" y="788" text-anchor="middle" font-size="16.5" font-weight="700" fill="#16212B">db.py</text>
+<text x="876" y="782" text-anchor="end" font-size="11.5" font-style="italic" fill="#5B6B7A">data</text>
+<text x="715" y="812" text-anchor="middle" font-size="13.5" fill="#16212B">Data access layer</text>
+<text x="715" y="832" text-anchor="middle" font-size="13.5" fill="#16212B">queries - password hashing -</text>
+<text x="715" y="852" text-anchor="middle" font-size="13.5" fill="#16212B">activity logging (same transaction)</text>
+<line x1="60" y1="880" x2="60" y2="103" stroke="#5B6B7A" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#down)"/>
+<text x="48" y="470" text-anchor="middle" font-size="12.5" fill="#5B6B7A" transform="rotate(-90 48 470)">HTTP response  (rendered HTML)</text>
+<line x1="715" y1="880" x2="715" y2="936" stroke="#5B6B7A" stroke-width="1.8" marker-end="url(#down)"/>
+<rect x="540" y="936" width="350" height="120" rx="12" fill="#F0EAE0" stroke="#C9A24B" stroke-width="2"/>
+<text x="715" y="964" text-anchor="middle" font-size="16.5" font-weight="700" fill="#6B4E09">Storage  (one folder)</text>
+<text x="715" y="988" text-anchor="middle" font-size="13.5" fill="#16212B">travels.db  -  SQLite: travels, users,</text>
+<text x="715" y="1008" text-anchor="middle" font-size="13.5" fill="#16212B">bookings, activity</text>
+<text x="715" y="1028" text-anchor="middle" font-size="13.5" fill="#16212B">secret_key.txt  -  signs session cookies</text>
+<g font-size="12.5" fill="#5B6B7A">
+<text x="92" y="960" font-weight="700" fill="#16212B">Layers</text>
+<rect x="92" y="972" width="16" height="12" rx="3" fill="#EAF2F8" stroke="#1C6491"/>
+<text x="116" y="982">application code</text>
+<rect x="92" y="992" width="16" height="12" rx="3" fill="#F0EAE0" stroke="#C9A24B"/>
+<text x="116" y="1002">outside Python / on disk</text>
+<rect x="92" y="1012" width="16" height="12" rx="3" fill="#FBF7F1" stroke="#12293F"/>
+<text x="116" y="1022">the viewer device</text>
+</g>
+<text x="120" y="1116" font-size="11.5" fill="#5B6B7A">A request flows top to bottom; rendered HTML returns up the left. Three Python modules: server.py (serving), app.py (logic), db.py (data).</text>
+</svg>

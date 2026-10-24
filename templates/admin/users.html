@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Users — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section">
+  <div class="page-head">
+    <h1>Users</h1>
+    <a class="btn btn-solid" href="{{ url_for('user_new') }}">Add a user</a>
+  </div>
+
+  <p class="muted">
+    A green dot means the account made a request in the last {{ window_minutes }} minutes.
+    Signing out turns it red at once.
+  </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th class="num">Bookings</th>
+        <th>Last seen</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td class="nowrap">
+          {% if online[u.id] %}
+            <span class="dot dot-online" title="Connected"></span> <span class="muted">online</span>
+          {% else %}
+            <span class="dot dot-offline" title="Not connected"></span> <span class="muted">offline</span>
+          {% endif %}
+        </td>
+        <td>
+          <strong>{{ u.username }}</strong>
+          {% if u.id == user.id %}<span class="muted">(you)</span>{% endif %}
+          {% if not u.is_active %}<br><span class="tag tag-deleted">disabled</span>{% endif %}
+        </td>
+        <td>
+          {{ u.full_name or "—" }}
+          {% if u.email %}<br><span class="muted">{{ u.email }}</span>{% endif %}
+        </td>
+        <td><span class="role role-{{ u.role }}">{{ u.role }}</span></td>
+        <td class="num">{{ u.booking_count }}</td>
+        <td class="muted nowrap">{{ u.last_seen or u.last_login or "never" }}</td>
+        <td class="actions">
+          <a class="btn btn-small" href="{{ url_for('user_edit', user_id=u.id) }}">Edit</a>
+          {% if u.id != user.id %}
+          <form method="post" action="{{ url_for('user_delete', user_id=u.id) }}"
+                onsubmit="return confirm('Delete “{{ u.username }}” and all their bookings?');">
+            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</main>
+{% endblock %}

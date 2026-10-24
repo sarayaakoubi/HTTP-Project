@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}My bookings — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section">
+  <h1>{{ user.full_name or user.username }}</h1>
+  <p class="muted">
+    {{ user.role }} &middot; member since {{ user.created_at }}
+    {% if user.email %} &middot; {{ user.email }}{% endif %}
+  </p>
+
+  <h2>My bookings</h2>
+  {% if bookings %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Travel</th>
+          <th class="num">Travellers</th>
+          <th class="num">Total</th>
+          <th>Payment</th>
+          <th>Booked on</th>
+          <th>Status</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in bookings %}
+        <tr>
+          <td>
+            <strong>{{ b.travel_name }}</strong>
+            {% if not b.travel_id %}<br><span class="muted">no longer offered</span>{% endif %}
+            {% if b.depart_date %}<br><span class="muted">departs {{ b.depart_date }}</span>{% endif %}
+            {% if b.notes %}<br><span class="muted">{{ b.notes }}</span>{% endif %}
+          </td>
+          <td class="num">{{ b.travellers }}</td>
+          <td class="num">{{ b.total_price|money }} DT</td>
+          <td class="muted">
+            {{ b.payment_method|replace('agency','at the agency')|replace('transfer','bank transfer') }}
+            {% if b.card_number %}<br>{{ b.card_number|card }}{% endif %}
+            <br><span class="tag tag-{{ b.payment_status }}">{{ b.payment_status }}</span>
+          </td>
+          <td class="muted nowrap">{{ b.created_at }}</td>
+          <td><span class="tag tag-{{ b.status }}">{{ b.status }}</span></td>
+          <td class="actions">
+            {% if b.status == 'confirmed' %}
+            <form method="post" action="{{ url_for('booking_cancel', booking_id=b.id) }}"
+                  onsubmit="return confirm('Cancel this booking?');">
+              <input type="hidden" name="back" value="{{ url_for('profile') }}">
+              <button class="btn btn-small btn-danger" type="submit">Cancel</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty">No bookings yet. <a href="{{ url_for('home') }}">Browse the travels.</a></p>
+  {% endif %}
+
+  <h2>Change my password</h2>
+  <form method="post" action="{{ url_for('change_own_password') }}" class="form narrow-form">
+    <label for="current_password">Current password</label>
+    <input id="current_password" name="current_password" type="password"
+           autocomplete="current-password">
+
+    <label for="new_password">New password</label>
+    <input id="new_password" name="new_password" type="password" autocomplete="new-password">
+
+    <div class="form-actions">
+      <button class="btn btn-solid" type="submit">Change password</button>
+    </div>
+  </form>
+</main>
+{% endblock %}

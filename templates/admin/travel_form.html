@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set editing = mode == "edit" %}
+{% block title %}{{ "Edit" if editing else "Add" }} a travel — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section narrow">
+  <h1>{{ "Edit travel" if editing else "Add a travel" }}</h1>
+
+  <form method="post"
+        action="{{ url_for('travel_edit', travel_id=travel.id) if editing else url_for('travel_new') }}"
+        class="form" novalidate>
+
+    <label for="name">Name <span class="req">*</span></label>
+    <input id="name" name="name" type="text" value="{{ travel.name }}" maxlength="120" autofocus>
+    {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
+
+    <label for="summary">Summary</label>
+    <textarea id="summary" name="summary" rows="3">{{ travel.summary }}</textarea>
+
+    <label for="duration">Duration</label>
+    <input id="duration" name="duration" type="text" value="{{ travel.duration }}"
+           placeholder="7 days / 6 nights">
+
+    <label for="price">Price per person (DT) <span class="req">*</span></label>
+    <input id="price" name="price" type="text" inputmode="decimal" value="{{ travel.price }}"
+           placeholder="650">
+    {% if errors.price %}<p class="error">{{ errors.price }}</p>{% endif %}
+
+    <div class="form-actions">
+      <button class="btn btn-solid" type="submit">{{ "Save changes" if editing else "Add travel" }}</button>
+      <a class="btn" href="{{ url_for('travel_list') }}">Cancel</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

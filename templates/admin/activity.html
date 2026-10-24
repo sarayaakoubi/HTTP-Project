@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Activity — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section">
+  <h1>Activity</h1>
+  <p class="muted">
+    Every sign-in, add, edit, delete, booking and cancellation, newest first.
+    Entries recorded before accounts existed show no user.
+  </p>
+
+  {% if entries %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>When</th>
+        <th>Who</th>
+        <th>Action</th>
+        <th>Target</th>
+        <th>What changed</th>
+        <th>From</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in entries %}
+      <tr>
+        <td class="nowrap muted">{{ e.at }}</td>
+        <td>{{ e.actor_name or "—" }}</td>
+        <td><span class="tag tag-{{ e.action }}">{{ e.action }}</span></td>
+        <td>
+          <span class="muted">{{ e.target_kind }}</span>
+          {{ e.target_name }}
+        </td>
+        <td class="muted">{{ e.details or "—" }}</td>
+        <td class="nowrap muted">{{ e.actor_ip }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="empty">Nothing has happened yet.</p>
+  {% endif %}
+</main>
+{% endblock %}

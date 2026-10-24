@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+travels.db
+secret_key.txt
+travels.db.bak-*

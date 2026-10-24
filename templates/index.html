@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}{{ agency.name }} — {{ agency.tagline }}{% endblock %}
+
+{% block body %}
+
+<section class="hero scene-dawn">
+  <div class="hero-inner" data-reveal>
+    <p class="eyebrow">Travel agency</p>
+    <h1>{{ agency.tagline }}</h1>
+    <p class="lede">
+      Flights, package holidays and tailor-made itineraries, booked by people
+      who have been there. Tell us where you want to go.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-cta" href="#destinations">Find your journey</a>
+      <a class="btn btn-ghost" href="#contact">Talk to us</a>
+    </div>
+  </div>
+
+  {# Decorative horizon, drawn with smooth curves rather than angular peaks. #}
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none" focusable="false">
+      <circle cx="930" cy="140" r="58" class="sun"/>
+      <path class="ridge-far"
+            d="M0 244 C 170 196, 300 236, 470 196 C 640 156, 760 232, 930 196
+               C 1060 168, 1130 212, 1200 192 L1200 300 L0 300 Z"/>
+      <path class="ridge-near"
+            d="M0 272 C 200 240, 380 276, 580 244 C 780 212, 960 268, 1200 240
+               L1200 300 L0 300 Z"/>
+      <g class="plane">
+        <path d="M60 96 C 84 92, 110 90, 132 86 L150 70 L162 74 L154 90
+                 C 166 88, 180 86, 186 86 L196 96 L154 104 L160 124 L148 128
+                 L132 106 C 110 104, 84 102, 60 104 Z"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<main>
+  <section id="destinations" class="section">
+    <header class="section-head" data-reveal>
+      <p class="eyebrow">Where to</p>
+      <h2>Journeys we run right now</h2>
+      <p class="muted lede-sm">
+        Prices are per person. Tell us your dates and we build the rest around them.
+      </p>
+    </header>
+
+    {% if destinations %}
+      <div class="grid">
+        {% for d in destinations %}
+        <article class="card tilt" data-reveal style="--i: {{ loop.index0 }}">
+          <div class="card-art" aria-hidden="true" style="--hue: {{ loop.index0 * 47 }}">
+            <span class="card-art-glow"></span>
+          </div>
+
+          <div class="card-body">
+            <h3>{{ d.name }}</h3>
+            {% if d.duration %}<p class="meta">{{ d.duration }}</p>{% endif %}
+            {% if d.summary %}<p>{{ d.summary }}</p>{% endif %}
+
+            <p class="price">
+              <span class="price-from">from</span>
+              {{ d.price|money }}<span class="price-cur">DT</span>
+            </p>
+
+            {% if user and user.role == 'client' %}
+              <form method="get" action="{{ url_for('book', travel_id=d.id) }}" class="book-form">
+                <label for="travellers-{{ d.id }}" class="inline-label">Travellers</label>
+                <input id="travellers-{{ d.id }}" name="travellers" type="number"
+                       value="1" min="1" max="20" class="qty">
+                <button class="btn btn-small btn-cta" type="submit">Book</button>
+              </form>
+            {% elif user and user.role == 'admin' %}
+              <p class="meta">
+                <a href="{{ url_for('travel_edit', travel_id=d.id) }}">Edit this travel</a>
+              </p>
+            {% else %}
+              <p class="meta">
+                <a href="{{ url_for('login') }}">Sign in</a> to book this journey.
+              </p>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">No journeys on offer yet.</p>
+    {% endif %}
+  </section>
+
+  <section id="services" class="section section-alt">
+    <header class="section-head" data-reveal>
+      <p class="eyebrow">What we do</p>
+      <h2>Everything except the packing</h2>
+    </header>
+
+    <div class="grid grid-tight">
+      {% for title, description in services %}
+      <article class="card card-plain" data-reveal style="--i: {{ loop.index0 }}">
+        <div class="card-body">
+          <h3>{{ title }}</h3>
+          <p>{{ description }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="contact-card" data-reveal>
+      <div>
+        <p class="eyebrow">Talk to us</p>
+        <h2>Tell us where you want to go</h2>
+        <p class="muted">We answer the same day, in Arabic, French or English.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-cta" href="tel:{{ agency.phone }}">{{ agency.phone }}</a>
+        <a class="btn btn-ghost" href="mailto:{{ agency.email }}">{{ agency.email }}</a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Book {{ travel.name }} — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section narrow">
+  <h1>Book {{ travel.name }}</h1>
+  <p class="muted">
+    {{ travel.duration }} &middot; {{ travel.price|money }} DT per person
+  </p>
+
+  <form method="post" class="form" novalidate
+        action="{{ url_for('book', travel_id=travel.id) }}">
+
+    <h2>Your trip</h2>
+
+    <label for="travellers">Number of travellers <span class="req">*</span></label>
+    <input id="travellers" name="travellers" type="number" min="1" max="20"
+           value="{{ form.travellers }}">
+    {% if errors.travellers %}<p class="error">{{ errors.travellers }}</p>{% endif %}
+
+    <label for="depart_date">Departure date <span class="req">*</span></label>
+    <input id="depart_date" name="depart_date" type="date" value="{{ form.depart_date }}"
+           min="{{ today }}" aria-describedby="depart-hint">
+    <p id="depart-hint" class="meta">Native picker — arrow keys and typing both work.</p>
+    {% if errors.depart_date %}<p class="error">{{ errors.depart_date }}</p>{% endif %}
+
+    <label for="notes">Anything we should know?</label>
+    <textarea id="notes" name="notes" rows="2">{{ form.notes }}</textarea>
+
+    <h2>Your details</h2>
+
+    <label for="bill_name">Full name <span class="req">*</span></label>
+    <input id="bill_name" name="bill_name" type="text" value="{{ form.bill_name }}"
+           autocomplete="name">
+    {% if errors.bill_name %}<p class="error">{{ errors.bill_name }}</p>{% endif %}
+
+    <label for="bill_cin">CIN <span class="req">*</span></label>
+    <input id="bill_cin" name="bill_cin" type="text" inputmode="numeric"
+           value="{{ form.bill_cin }}" placeholder="12345678" maxlength="8">
+    {% if errors.bill_cin %}<p class="error">{{ errors.bill_cin }}</p>{% endif %}
+
+    <label for="bill_phone">Phone</label>
+    <input id="bill_phone" name="bill_phone" type="text" value="{{ form.bill_phone }}"
+           placeholder="+216 00 000 000" autocomplete="tel">
+    {% if errors.bill_phone %}<p class="error">{{ errors.bill_phone }}</p>{% endif %}
+
+    <label for="bill_address">Address <span class="req">*</span></label>
+    <input id="bill_address" name="bill_address" type="text" value="{{ form.bill_address }}"
+           autocomplete="street-address">
+    {% if errors.bill_address %}<p class="error">{{ errors.bill_address }}</p>{% endif %}
+
+    <div class="field-row">
+      <div>
+        <label for="bill_city">City <span class="req">*</span></label>
+        <input id="bill_city" name="bill_city" type="text" value="{{ form.bill_city }}"
+               autocomplete="address-level2">
+        {% if errors.bill_city %}<p class="error">{{ errors.bill_city }}</p>{% endif %}
+      </div>
+      <div>
+        <label for="bill_postal_code">Postal code <span class="req">*</span></label>
+        <input id="bill_postal_code" name="bill_postal_code" type="text"
+               inputmode="numeric" value="{{ form.bill_postal_code }}"
+               placeholder="1000" maxlength="4" autocomplete="postal-code">
+        {% if errors.bill_postal_code %}<p class="error">{{ errors.bill_postal_code }}</p>{% endif %}
+      </div>
+    </div>
+
+    <h2>Payment</h2>
+
+    <div class="methods">
+      {% for m in methods %}
+      <label class="checkbox">
+        <input type="radio" name="payment_method" value="{{ m }}"
+               {% if form.payment_method == m %}checked{% endif %}
+               onchange="document.getElementById('card-fields').hidden = (this.value !== 'card');">
+        {{ labels[m] }}
+      </label>
+      {% endfor %}
+    </div>
+    {% if errors.payment_method %}<p class="error">{{ errors.payment_method }}</p>{% endif %}
+
+    <div id="card-fields" {% if form.payment_method != 'card' %}hidden{% endif %}>
+      <label for="card_holder">Name on the card <span class="req">*</span></label>
+      <input id="card_holder" name="card_holder" type="text" value="{{ form.card_holder }}"
+             autocomplete="off">
+      {% if errors.card_holder %}<p class="error">{{ errors.card_holder }}</p>{% endif %}
+
+      <label for="card_number">Card number <span class="req">*</span></label>
+      <input id="card_number" name="card_number" type="text" inputmode="numeric"
+             value="{{ form.card_number }}" placeholder="4111 1111 1111 1111"
+             autocomplete="off">
+      {% if errors.card_number %}<p class="error">{{ errors.card_number }}</p>{% endif %}
+
+      <div class="field-row">
+        <div>
+          <label for="card_expiry">Expiry <span class="req">*</span></label>
+          <input id="card_expiry" name="card_expiry" type="text" value="{{ form.card_expiry }}"
+                 placeholder="04/29" maxlength="5" autocomplete="off">
+          {% if errors.card_expiry %}<p class="error">{{ errors.card_expiry }}</p>{% endif %}
+        </div>
+        <div>
+          <label for="card_cvv">CVV <span class="req">*</span></label>
+          <input id="card_cvv" name="card_cvv" type="text" inputmode="numeric"
+                 value="{{ form.card_cvv }}" placeholder="123" maxlength="4"
+                 autocomplete="off">
+          {% if errors.card_cvv %}<p class="error">{{ errors.card_cvv }}</p>{% endif %}
+        </div>
+      </div>
+
+      <p class="note">
+        Lab exercise: use made-up card numbers only. This form sends and stores
+        them in clear text, with no payment provider behind it.
+      </p>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-solid" type="submit">Confirm booking</button>
+      <a class="btn" href="{{ url_for('home') }}">Cancel</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

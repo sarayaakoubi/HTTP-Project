@@ -1,0 +1,116 @@
+@startuml use-case-diagram
+' Horizon Travel — global use case diagram
+'
+' Render:
+'   - VS Code: install the "PlantUML" extension, then Alt+D to preview
+'   - Online:  paste into https://www.plantuml.com/plantuml
+'   - Locally: java -jar plantuml.jar docs/use-case-diagram.puml
+'
+' Every use case below corresponds to a route in app.py. Nothing here is
+' aspirational — if it is on the diagram, it is implemented.
+
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam ArrowColor #5B6B7A
+skinparam actorStyle awesome
+skinparam actor {
+  BorderColor #12293F
+  BackgroundColor #FFFFFF
+}
+skinparam usecase {
+  BorderColor #1C6491
+  BackgroundColor #FFFFFF
+  FontColor #16212B
+}
+skinparam rectangle {
+  BorderColor #12293F
+  FontColor #12293F
+  FontSize 16
+  FontStyle bold
+}
+
+actor "Visitor"            as visitor
+actor "Authenticated User" as auth
+actor "Client"             as client
+actor "Administrator"      as admin
+
+' A client and an administrator are both signed-in users, so they inherit
+' everything the Authenticated User can do; an authenticated user in turn
+' inherits what any visitor can do.
+auth   --|> visitor
+client --|> auth
+admin  --|> auth
+
+rectangle "Travel Agency Web Application" {
+
+  ' --- open to anyone ---
+  usecase "Browse travel offers"   as UC1
+  usecase "Create an account"      as UC2
+  usecase "Sign in"                as UC3
+
+  ' --- any signed-in user ---
+  usecase "Sign out"               as UC4
+  usecase "Change my password"     as UC5
+
+  ' --- client ---
+  usecase "Book a travel"          as UC6
+  usecase "View my bookings"       as UC7
+  usecase "Cancel a booking"       as UC8
+
+  ' --- administrator ---
+  usecase "Manage travel offers"   as UC9
+  usecase "Manage user accounts"   as UC10
+  usecase "Review all bookings"    as UC11
+  usecase "Consult activity log"   as UC12
+
+  ' --- reached through another use case, never directly ---
+  usecase "Provide traveller &\nbilling details" as UC13
+  usecase "Choose payment method"  as UC14
+  usecase "Pay by card"            as UC15
+  usecase "Monitor connected users" as UC16
+  usecase "Record in activity log" as UC17
+}
+
+visitor --> UC1
+visitor --> UC2
+visitor --> UC3
+
+auth --> UC4
+auth --> UC5
+
+client --> UC6
+client --> UC7
+client --> UC8
+
+admin --> UC8
+admin --> UC9
+admin --> UC10
+admin --> UC11
+admin --> UC12
+
+' Booking always collects the traveller's details and a payment method.
+UC6 ..> UC13 : <<include>>
+UC6 ..> UC14 : <<include>>
+' Card entry only happens when the card method is chosen, so it extends.
+UC15 ..> UC14 : <<extend>>
+
+' The audit trail is written in the same transaction as the change itself.
+UC6  ..> UC17 : <<include>>
+UC9  ..> UC17 : <<include>>
+UC10 ..> UC17 : <<include>>
+
+' The presence indicator is part of viewing the accounts.
+UC10 ..> UC16 : <<include>>
+
+note bottom of UC8
+  A client may cancel only their own
+  booking; an administrator may cancel any.
+end note
+
+note right of UC17
+  Sign-in and sign-out are
+  recorded here as well.
+end note
+
+@enduml

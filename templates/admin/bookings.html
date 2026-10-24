@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Bookings — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section">
+  <h1>All bookings</h1>
+
+  {% if bookings %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Details</th>
+        <th>Travel</th>
+        <th class="num">Travellers</th>
+        <th class="num">Total</th>
+        <th>Payment</th>
+        <th>Booked on</th>
+        <th>Status</th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td>
+          <strong>{{ b.username }}</strong>
+          {% if b.full_name %}<br><span class="muted">{{ b.full_name }}</span>{% endif %}
+        </td>
+        <td class="muted small">
+          {% if b.bill_name %}{{ b.bill_name }}<br>{% endif %}
+          {% if b.bill_cin %}CIN {{ b.bill_cin }}<br>{% endif %}
+          {% if b.bill_phone %}{{ b.bill_phone }}<br>{% endif %}
+          {% if b.bill_address %}{{ b.bill_address }}<br>{% endif %}
+          {% if b.bill_postal_code or b.bill_city %}
+            {{ b.bill_postal_code }} {{ b.bill_city }}
+          {% endif %}
+        </td>
+        <td>
+          {{ b.travel_name }}
+          {% if not b.travel_id %}<br><span class="muted">travel deleted</span>{% endif %}
+          {% if b.depart_date %}<br><span class="muted">departs {{ b.depart_date }}</span>{% endif %}
+          {% if b.notes %}<br><span class="muted">{{ b.notes }}</span>{% endif %}
+        </td>
+        <td class="num">{{ b.travellers }}</td>
+        <td class="num">{{ b.total_price|money }} DT</td>
+        <td class="muted small">
+          {{ b.payment_method|replace('agency','at the agency')|replace('transfer','bank transfer') }}
+          {% if b.card_number %}
+            <br>{{ b.card_holder }}
+            <br>{{ b.card_number|card }}
+            <br>exp {{ b.card_expiry }}
+          {% endif %}
+          <br><span class="tag tag-{{ b.payment_status }}">{{ b.payment_status }}</span>
+        </td>
+        <td class="muted nowrap">{{ b.created_at }}</td>
+        <td><span class="tag tag-{{ b.status }}">{{ b.status }}</span></td>
+        <td class="actions">
+          {% if b.status == 'confirmed' %}
+          <form method="post" action="{{ url_for('booking_cancel', booking_id=b.id) }}"
+                onsubmit="return confirm('Cancel this booking?');">
+            <input type="hidden" name="back" value="{{ url_for('booking_list') }}">
+            <button class="btn btn-small btn-danger" type="submit">Cancel</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="empty">Nobody has booked anything yet.</p>
+  {% endif %}
+</main>
+{% endblock %}

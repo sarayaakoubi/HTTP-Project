@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% set editing = mode == "edit" %}
+{% block title %}{{ "Edit" if editing else "Add" }} a user — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section narrow">
+  <h1>{{ "Edit user" if editing else "Add a user" }}</h1>
+
+  <form method="post" class="form" novalidate
+        action="{{ url_for('user_edit', user_id=form.id) if editing else url_for('user_new') }}">
+
+    <label for="username">Username <span class="req">*</span></label>
+    <input id="username" name="username" type="text" value="{{ form.username }}" autofocus>
+    {% if errors.username %}<p class="error">{{ errors.username }}</p>{% endif %}
+
+    <label for="full_name">Full name</label>
+    <input id="full_name" name="full_name" type="text" value="{{ form.full_name }}">
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="text" value="{{ form.email }}">
+    {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+
+    <label for="role">Role</label>
+    <select id="role" name="role">
+      {% for r in roles %}
+        <option value="{{ r }}" {% if form.role == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+    {% if errors.role %}<p class="error">{{ errors.role }}</p>{% endif %}
+
+    <label for="password">
+      Password {% if editing %}<span class="muted">(leave blank to keep it)</span>
+      {% else %}<span class="req">*</span>{% endif %}
+    </label>
+    <input id="password" name="password" type="password" autocomplete="new-password">
+    {% if errors.password %}<p class="error">{{ errors.password }}</p>{% endif %}
+
+    <label class="checkbox">
+      <input name="is_active" type="checkbox" {% if form.is_active %}checked{% endif %}>
+      Account is active (can sign in)
+    </label>
+
+    <div class="form-actions">
+      <button class="btn btn-solid" type="submit">{{ "Save changes" if editing else "Create user" }}</button>
+      <a class="btn" href="{{ url_for('user_list') }}">Cancel</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

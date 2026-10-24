@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Manage travels — {{ agency.name }}{% endblock %}
+
+{% block body %}
+<main class="section">
+  <div class="page-head">
+    <h1>Travels</h1>
+    <a class="btn btn-solid" href="{{ url_for('travel_new') }}">Add a travel</a>
+  </div>
+
+  {% if travels %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Duration</th>
+        <th class="num">Price</th>
+        <th>Last updated</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in travels %}
+      <tr>
+        <td>
+          <strong>{{ t.name }}</strong>
+          {% if t.summary %}<br><span class="muted">{{ t.summary }}</span>{% endif %}
+        </td>
+        <td>{{ t.duration or "—" }}</td>
+        <td class="num">{{ t.price|money }} DT</td>
+        <td class="muted">{{ t.updated_at }}</td>
+        <td class="actions">
+          <a class="btn btn-small" href="{{ url_for('travel_edit', travel_id=t.id) }}">Edit</a>
+          <form method="post"
+                action="{{ url_for('travel_delete', travel_id=t.id) }}"
+                onsubmit="return confirm('Delete “{{ t.name }}”? This cannot be undone.');">
+            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="empty">No travels yet. <a href="{{ url_for('travel_new') }}">Add the first one.</a></p>
+  {% endif %}
+</main>
+{% endblock %}

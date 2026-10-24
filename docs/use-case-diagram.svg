@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1205" viewBox="0 0 1300 1205" font-family="Segoe UI, Arial, Helvetica, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5B6B7A"/></marker><marker id="gen" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M0 0 L13 7 L0 14 z" fill="#FFFFFF" stroke="#5B6B7A" stroke-width="1.4"/></marker></defs>
+<rect width="1300" height="1205" fill="#FFFFFF"/>
+<rect x="300" y="80" width="930" height="1065" rx="14" fill="#FBFCFD" stroke="#12293F" stroke-width="2"/>
+<text x="765.0" y="112" text-anchor="middle" font-size="19" font-weight="600" fill="#12293F">Travel Agency Web Application</text>
+<g stroke="#12293F" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="85" cy="142" r="13" fill="#FFFFFF"/><line x1="85" y1="155" x2="85" y2="184"/><line x1="66" y1="166" x2="104" y2="166"/><line x1="85" y1="184" x2="70" y2="208"/><line x1="85" y1="184" x2="100" y2="208"/></g>
+<text x="85" y="228" text-anchor="middle" font-size="14" font-weight="600" fill="#16212B">Visitor</text>
+<g stroke="#12293F" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="85" cy="372" r="13" fill="#FFFFFF"/><line x1="85" y1="385" x2="85" y2="414"/><line x1="66" y1="396" x2="104" y2="396"/><line x1="85" y1="414" x2="70" y2="438"/><line x1="85" y1="414" x2="100" y2="438"/></g>
+<text x="85" y="458" text-anchor="middle" font-size="14" font-weight="600" fill="#16212B">Authenticated</text>
+<text x="85" y="474" text-anchor="middle" font-size="14" font-weight="600" fill="#16212B">User</text>
+<g stroke="#12293F" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="85" cy="622" r="13" fill="#FFFFFF"/><line x1="85" y1="635" x2="85" y2="664"/><line x1="66" y1="646" x2="104" y2="646"/><line x1="85" y1="664" x2="70" y2="688"/><line x1="85" y1="664" x2="100" y2="688"/></g>
+<text x="85" y="708" text-anchor="middle" font-size="14" font-weight="600" fill="#16212B">Client</text>
+<g stroke="#12293F" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="200" cy="912" r="13" fill="#FFFFFF"/><line x1="200" y1="925" x2="200" y2="954"/><line x1="181" y1="936" x2="219" y2="936"/><line x1="200" y1="954" x2="185" y2="978"/><line x1="200" y1="954" x2="215" y2="978"/></g>
+<text x="200" y="998" text-anchor="middle" font-size="14" font-weight="600" fill="#16212B">Administrator</text>
+<line x1="85" y1="355" x2="85" y2="238" stroke="#5B6B7A" stroke-width="1.6" marker-end="url(#gen)"/>
+<line x1="85" y1="605" x2="85" y2="484" stroke="#5B6B7A" stroke-width="1.6" marker-end="url(#gen)"/>
+<line x1="200" y1="895" x2="85" y2="484" stroke="#5B6B7A" stroke-width="1.6" marker-end="url(#gen)"/>
+<ellipse cx="482" cy="160" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="165" text-anchor="middle" font-size="13.5" fill="#16212B">Browse travel offers</text>
+<ellipse cx="482" cy="240" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="245" text-anchor="middle" font-size="13.5" fill="#16212B">Create an account</text>
+<ellipse cx="482" cy="320" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="325" text-anchor="middle" font-size="13.5" fill="#16212B">Sign in</text>
+<ellipse cx="482" cy="400" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="405" text-anchor="middle" font-size="13.5" fill="#16212B">Sign out</text>
+<ellipse cx="482" cy="480" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="485" text-anchor="middle" font-size="13.5" fill="#16212B">Change my password</text>
+<ellipse cx="482" cy="575" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="580" text-anchor="middle" font-size="13.5" fill="#16212B">Book a travel</text>
+<ellipse cx="482" cy="655" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="660" text-anchor="middle" font-size="13.5" fill="#16212B">View my bookings</text>
+<ellipse cx="482" cy="735" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="740" text-anchor="middle" font-size="13.5" fill="#16212B">Cancel a booking</text>
+<ellipse cx="482" cy="835" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="840" text-anchor="middle" font-size="13.5" fill="#16212B">Manage travel offers</text>
+<ellipse cx="482" cy="915" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="920" text-anchor="middle" font-size="13.5" fill="#16212B">Manage user accounts</text>
+<ellipse cx="482" cy="995" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="1000" text-anchor="middle" font-size="13.5" fill="#16212B">Review all bookings</text>
+<ellipse cx="482" cy="1075" rx="120" ry="35" fill="#FFFFFF" stroke="#1C6491" stroke-width="1.8"/>
+<text x="482" y="1080" text-anchor="middle" font-size="13.5" fill="#16212B">Consult activity log</text>
+<ellipse cx="848" cy="535" rx="120" ry="35" fill="#EAF2F8" stroke="#1C6491" stroke-width="1.8"/>
+<text x="848" y="532" text-anchor="middle" font-size="13.5" fill="#16212B">Provide traveller &amp;</text>
+<text x="848" y="548" text-anchor="middle" font-size="13.5" fill="#16212B">billing details</text>
+<ellipse cx="848" cy="625" rx="120" ry="35" fill="#EAF2F8" stroke="#1C6491" stroke-width="1.8"/>
+<text x="848" y="622" text-anchor="middle" font-size="13.5" fill="#16212B">Choose payment</text>
+<text x="848" y="638" text-anchor="middle" font-size="13.5" fill="#16212B">method</text>
+<ellipse cx="848" cy="700" rx="120" ry="35" fill="#EAF2F8" stroke="#1C6491" stroke-width="1.8"/>
+<text x="848" y="705" text-anchor="middle" font-size="13.5" fill="#16212B">Pay by card</text>
+<ellipse cx="848" cy="1075" rx="120" ry="35" fill="#EAF2F8" stroke="#1C6491" stroke-width="1.8"/>
+<text x="848" y="1072" text-anchor="middle" font-size="13.5" fill="#16212B">Monitor connected</text>
+<text x="848" y="1088" text-anchor="middle" font-size="13.5" fill="#16212B">users</text>
+<ellipse cx="1080" cy="900" rx="120" ry="35" fill="#EAF2F8" stroke="#1C6491" stroke-width="1.8"/>
+<text x="1080" y="897" text-anchor="middle" font-size="13.5" fill="#16212B">Record in</text>
+<text x="1080" y="913" text-anchor="middle" font-size="13.5" fill="#16212B">activity log</text>
+<line x1="107" y1="166" x2="362.4" y2="163.0" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="166" x2="379.3" y2="221.9" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="166" x2="408.7" y2="292.3" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="396" x2="362.0" y2="400.0" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="396" x2="383.3" y2="460.1" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="646" x2="381.3" y2="594.0" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="646" x2="362.1" y2="653.5" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="107" y1="646" x2="385.3" y2="714.3" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="222" y1="936" x2="437.3" y2="767.5" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="222" y1="936" x2="408.0" y2="862.6" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="222" y1="936" x2="367.2" y2="925.2" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="222" y1="936" x2="382.2" y2="975.5" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="222" y1="936" x2="419.6" y2="1045.1" stroke="#5B6B7A" stroke-width="1.4"/>
+<line x1="594.4" y1="562.7" x2="735.6" y2="547.3" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="665.0" y="547.0" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<line x1="590.7" y1="589.8" x2="739.3" y2="610.2" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="665.0" y="614.0" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<line x1="848.0" y1="665.0" x2="848.0" y2="660.0" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="848.0" y="654.5" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«extend»</text>
+<line x1="538.7" y1="605.8" x2="1023.3" y2="869.2" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="781.0" y="729.5" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<line x1="594.4" y1="847.2" x2="967.6" y2="887.8" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="781.0" y="859.5" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<line x1="601.6" y1="912.0" x2="960.4" y2="903.0" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="781.0" y="921.5" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<line x1="548.6" y1="944.1" x2="781.4" y2="1045.9" stroke="#5B6B7A" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="665.0" y="1009.0" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5B6B7A">«include»</text>
+<g font-size="11.5" fill="#5B6B7A">
+<rect x="980" y="744" width="240" height="42" rx="6" fill="#FFFDF2" stroke="#D9CBA3"/>
+<text x="990" y="762">A client cancels only their own</text>
+<text x="990" y="777">booking; an admin cancels any.</text>
+<rect x="960" y="960" width="240" height="42" rx="6" fill="#FFFDF2" stroke="#D9CBA3"/>
+<text x="970" y="978">Sign-in and sign-out are recorded</text>
+<text x="970" y="993">in the activity log as well.</text>
+</g>
+<text x="300" y="1189" font-size="11.5" fill="#5B6B7A">Horizon Travel — global use case diagram. Shaded use cases are included or extending behaviour, reached through another use case rather than directly.</text>
+</svg>
